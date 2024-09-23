@@ -13,7 +13,7 @@ public class AndersonThomasRSA
 		// Must implement Euclid's algorithm
 		// NO brute-forcing; violation will lead to zero points
 		// NO recursion; violation will lead to zero points
-		while ((inE != 0) & (inZ !=0)){
+		while (inZ !=0){
 			int temp = inZ;
 			inZ = inE % inZ;
 			inE = temp;
@@ -79,6 +79,10 @@ public class AndersonThomasRSA
 
 	public int[] keygen (int inP, int inQ, int inE) {
 		// TO BE FINISHED
+		int inN = inP * inQ;
+		int inZ = (inP-1)*(inQ-1);
+		int inD = xgcd(inE, inZ);
+		return new int[] {inE, inN, inD};
 	}
 
 	//
@@ -86,6 +90,7 @@ public class AndersonThomasRSA
 	//
 	public void testKeygen () {
 		int[] keypair = keygen (17, 19, 29);
+
 
 		System.out.println ("e = 0x" + Integer.toString(keypair[0], 16));
 		System.out.println ("N = 0x" + Integer.toString(keypair[1], 16));
@@ -100,16 +105,28 @@ public class AndersonThomasRSA
 	// Note that even with primitive types, a^b may well exceed the range of Java int
 	// For example, 5^20 is too big to be held by a Java primitive integer
 	//
-	public int modExp (int a, int b, int n) {
+	public int modExp (int c, int d, int n) {
 		// TO BE FINISHED
-	}
+		int x = 1;
+        int w = c % n;
+        while (d > 0) {
+            if ((d & 1) == 1) {
+                x = (x * w) % n;
+            }
+            w = (w * w) % n;
+            d >>= 1;
+        }
+        return x;
+    }
 
 	public int encrypt (int message, int inE, int inN) {
 		// TO BE FINISHED
+		return modExp(message, inE, inN);
 	}
 
 	public int decrypt (int ciphertext, int inD, int inN) {
 		// TO BE FINISHED
+		return modExp(ciphertext, inD, inN);
 	}
 
 	public void testRSA () {
