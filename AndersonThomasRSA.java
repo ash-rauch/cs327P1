@@ -1,18 +1,14 @@
 import java.util.Random;
 
 /**
- * @author Xunhua Wang. All rights reserved.
- * @date 02/16/2012; revised on 09/27/2018; further refined on 09/20/2019, 09/29/2020, 10/07/2022, 03/13/2023; 09/14/2024
+ * @author Jackson Greer and Ash Rauch, Xunhua Wang. All rights reserved.
+ * @date 09/23/24; 02/16/2012; revised on 09/27/2018; further refined on 09/20/2019, 09/29/2020, 10/07/2022, 03/13/2023; 09/14/2024
  * 
  */
 
 public class AndersonThomasRSA
 {
 	public int gcd (int inE, int inZ) {
-		// TO BE FINISHED
-		// Must implement Euclid's algorithm
-		// NO brute-forcing; violation will lead to zero points
-		// NO recursion; violation will lead to zero points
 		while (inZ !=0){
 			int temp = inZ;
 			inZ = inE % inZ;
@@ -59,10 +55,6 @@ public class AndersonThomasRSA
             bOlder += inZ;
         }
 		return bOlder;
-		// TO BE FINISHED
-		// Must implement the extended Euclidean algorithm
-		// NO brute-forcing; violation will lead to zero points
-		// NO recursion; violation will lead to zero points
 	}
 
 	public void testXgcd () {
@@ -106,7 +98,6 @@ public class AndersonThomasRSA
 	// For example, 5^20 is too big to be held by a Java primitive integer
 	//
 	public int modExp (int c, int d, int n) {
-		// TO BE FINISHED
 		int x = 1;
         int w = c % n;
         while (d > 0) {
@@ -120,12 +111,10 @@ public class AndersonThomasRSA
     }
 
 	public int encrypt (int message, int inE, int inN) {
-		// TO BE FINISHED
 		return modExp(message, inE, inN);
 	}
 
 	public int decrypt (int ciphertext, int inD, int inN) {
-		// TO BE FINISHED
 		return modExp(ciphertext, inD, inN);
 	}
 
