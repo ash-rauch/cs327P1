@@ -13,6 +13,12 @@ public class AndersonThomasRSA
 		// Must implement Euclid's algorithm
 		// NO brute-forcing; violation will lead to zero points
 		// NO recursion; violation will lead to zero points
+		while ((inE != 0) & (inZ !=0)){
+			int temp = inZ;
+			inZ = inE % inZ;
+			inE = temp;
+		}
+		return inE;
 	}
 
 	public void testGcd () {
@@ -35,6 +41,24 @@ public class AndersonThomasRSA
 	//	inverse of inE mod inZ
 	//
 	public int xgcd (int inE, int inZ) {
+
+		if (gcd(inE, inZ) > 1) {
+			return -1;
+		}
+		int bOlder = 0, bOld = 1, bNew, d = inE, q, a = inZ, b = inE;
+		while (d != 0){
+			q = a / b;
+			d = a % b;
+			bNew = bOlder - (q * bOld);
+			bOlder = bOld;
+			bOld = bNew;
+			a = b;
+			b = d;
+		}
+		if (bOlder < 0) {
+            bOlder += inZ;
+        }
+		return bOlder;
 		// TO BE FINISHED
 		// Must implement the extended Euclidean algorithm
 		// NO brute-forcing; violation will lead to zero points
